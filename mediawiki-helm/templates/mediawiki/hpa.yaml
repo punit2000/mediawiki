@@ -1,0 +1,32 @@
+{{- if .Values.mediawiki.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "mediawiki.fullname" . }}
+  labels:
+    {{- include "mediawiki.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "mediawiki.fullname" . }}
+  minReplicas: {{ .Values.mediawiki.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.mediawiki.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.mediawiki.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.mediawiki.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.mediawiki.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.mediawiki.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

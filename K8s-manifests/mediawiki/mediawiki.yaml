@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: mediawiki
+  name: mediawiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mediawiki
+  template:
+    metadata:
+      labels:
+        service: mediawiki
+    spec:
+      containers:
+      - image: mediawiki:v1
+        imagePullPolicy: IfNotPresent
+        name: mediawiki
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config-volume
+          mountPath: /var/www/mediawiki/LocalSettings.php
+          subPath: LocalSettings.php
+      restartPolicy: Always
+      volumes:
+      - name: config-volume
+        configMap:
+          name: mediawiki-config

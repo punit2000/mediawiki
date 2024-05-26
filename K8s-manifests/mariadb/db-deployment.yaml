@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  labels:
+    service: mariadb
+spec:
+  selector:
+    matchLabels:
+      service: mariadb
+  template:
+    metadata:
+      labels:
+        service: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MARIADB_ROOT_PASSWORD
+        volumeMounts:
+        - name: mariadb-inituser
+          mountPath: /docker-entrypoint-initdb.d
+        - name: mariadb-pv
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-inituser
+        secret:
+          secretName: db-users
+      - name: mariadb-pv
+        persistentVolumeClaim:
+          claimName: mariadb-pv-claim

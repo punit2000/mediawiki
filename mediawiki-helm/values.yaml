@@ -1,0 +1,127 @@
+# Default values for mediawiki.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+mediawiki:
+  name: mediawiki
+  replicaCount: 1
+
+# After generation of LocalSettings.php, set enabled flag to true and copy the file inside files directory
+  localsettings:
+    enabled: false
+  image:
+    repository: mediawiki
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "v1"
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  podAnnotations: {}
+  podLabels: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: NodePort
+    port: 80
+
+
+  resources: {}
+    # To specify resources for the mediwiki pod.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+# Enable autoscaling of mediawiki pods by setting the enabled flag as true.
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    #targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+
+mariadb:
+  name: mariadb
+
+# Specify mariadb username, password and database name.
+  dbUsers:
+    database: wikidatabase
+    username: wiki
+    password: password
+    name: mediawiki
+
+  replicaCount: 1
+
+# To prevent data loss, enable pvc by setting the flag as true.
+  pvc:
+    enabled: true
+    accessModes: ReadWriteOnce
+    storage:
+      requests: 300M
+
+  image:
+    repository: mariadb
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  podAnnotations: {}
+  podLabels: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 3306
+
+
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+

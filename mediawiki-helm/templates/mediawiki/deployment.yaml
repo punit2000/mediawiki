@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mediawiki.fullname" . }}
+  labels:
+    {{- include "mediawiki.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.mediawiki.autoscaling.enabled }}
+  replicas: {{ .Values.mediawiki.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "mediawiki.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.mediawiki.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "mediawiki.labels" . | nindent 8 }}
+        {{- with .Values.mediawiki.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.mediawiki.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.mediawiki.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Values.mediawiki.name }}
+          securityContext:
+            {{- toYaml .Values.mediawiki.securityContext | nindent 12 }}
+          image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.mediawiki.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.mediawiki.resources | nindent 12 }}
+          {{- if .Values.mediawiki.localsettings.enabled }}
+          volumeMounts:
+          - name: {{ .Values.mediawiki.name }}-config-volume
+            mountPath: /var/www/mediawiki/LocalSettings.php
+            subPath: LocalSettings.php
+          {{- end }}
+      {{- if .Values.mediawiki.localsettings.enabled }}
+      volumes:
+      - name: {{ .Values.mediawiki.name }}-config-volume
+        configMap:
+          name: {{ .Values.mediawiki.name}}-config
+      {{- end }}
+      {{- with .Values.mediawiki.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.mediawiki.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.mediawiki.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

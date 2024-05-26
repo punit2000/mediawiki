@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "mariadb.labels" . | nindent 4 }}
+  name: {{ .Values.mariadb.name }}
+spec:
+  type: {{ .Values.mariadb.service.type }}
+  ports:
+  - name: {{ .Values.mariadb.name }}
+    port: {{ .Values.mariadb.service.port }}
+    targetPort: 3306
+  selector:
+    {{- include "mariadb.selectorLabels" . | nindent 4 }}

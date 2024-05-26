@@ -1,0 +1,9 @@
+{{- if .Values.mediawiki.localsettings.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.mediawiki.name }}-config
+data:
+  LocalSettings.php: |-
+    {{ .Files.Get "files/LocalSettings.php" | nindent 4 }}
+{{- end }}

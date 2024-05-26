@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: mediawiki
+  name: mediawiki
+spec:
+  type: NodePort
+  ports:
+  - name: "mediawalk"
+    port: 80
+    targetPort: 80
+  selector:
+    service: mediawiki
