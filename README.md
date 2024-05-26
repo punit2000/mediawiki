@@ -104,10 +104,13 @@ The following table lists some of the configurable parameters of the MediaWiki c
 - DB password: `password`
 
 ## Output Screenshot
-![Running pods](pods-running.png =250x250) 
-![Output image](output_1.png =250x250)
-![Database Configuration](output_2.png =250x250)
-![After loading LocalSettings.php file](output_3.png =250x250)
+![Running pods]<img src="output_screenshots/pods-running.png" width="100" height="100">
+
+![Output image]<img src="output_screenshots/output_1.png" width="100" height="100">
+
+![Database Configuration]<img src="output_screenshots/output_2.png" width="100" height="100">
+
+![After loading LocalSettings.php file]<img src="output_screenshots/output_3.png" width="100" height="100">
 ## Deployment Strategy
 Rolling updates are the default strategy for deployments in Kubernetes. This process allows you to update your application in Kubernetes with minimal downtime, as it ensures that some instances of your application are always running during the update process.
 
