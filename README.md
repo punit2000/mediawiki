@@ -103,14 +103,6 @@ The following table lists some of the configurable parameters of the MediaWiki c
 - DB database: `wikidatabase`
 - DB password: `password`
 
-## Output Screenshot
-<img src="output_screenshots/pods-running.png" width="500" height="125"><br />
-
-<img src="output_screenshots/output_1.png" width="550" height="250"><br />
-
-<img src="output_screenshots/output_2.png" width="550" height="250"><br />
-
-<img src="output_screenshots/output_3.png" width="550" height="250">
 ## Deployment Strategy
 Rolling updates are the default strategy for deployments in Kubernetes. This process allows you to update your application in Kubernetes with minimal downtime, as it ensures that some instances of your application are always running during the update process.
 
@@ -164,5 +156,16 @@ kubectl create configmap mediawiki-config --from-file=LocalSettings.php
 - Creating docker image with nonroot user, as it is recommended to prevent containers from running with root privilges in production environments.
 - Instead of storing LocalSettings.php inside the files directory of the chart, we can configure the helm chart to take it from any path.
 
+## Output Screenshots
+### Pods Runnings:
+<img src="output_screenshots/pods-running.png" width="500" height="125"><br />
 
+### After Deployment UI:
+<img src="output_screenshots/output_1.png" width="550" height="250"><br />
+
+### Database configuration details:
+<img src="output_screenshots/output_2.png" width="550" height="250"><br />
+
+### After loading LocalSettings.php file
+<img src="output_screenshots/output_3.png" width="550" height="250">
 
