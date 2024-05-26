@@ -78,7 +78,7 @@ mariadb:
 
 # To prevent data loss, enable pvc by setting the flag as true.
   pvc:
-    enabled: true
+    enabled: false
     accessModes: ReadWriteOnce
     storage:
       requests: 300M
