@@ -72,7 +72,6 @@ mariadb:
     database: wikidatabase
     username: wiki
     password: password
-    name: mediawiki
 
   replicaCount: 1
 

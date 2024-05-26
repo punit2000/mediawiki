@@ -5,7 +5,7 @@ Contains Docker, kubernetes files and helm chart for setting up the Mediawiki v1
 - /Dockerfile - This Dockerfile is used to create a Docker image for running MediaWiki. The image is based on Red Hat Enterprise Linux (RHEL) 8 and includes all the necessary dependencies for running MediaWiki.
 - For Mediawiki database we are using `mariadb:latest` image.
 
-## Deployment using mediawiki-helm chart
+## Deploy using helm chart
 This Helm chart is designed to simplify the deployment of MediaWiki on Kubernetes clusters.
 
 ### Chart Content:
@@ -88,6 +88,9 @@ The following table lists some of the configurable parameters of the MediaWiki c
 | `mariadb.image.repository` | image repository for mariadb database | mariadb |
 | `mariadb.image.pullPolicy` | image pull policy | IfNotPresent |
 | `mariadb.image.tag` | image tag | latest |
+| `mariadb.dbUsers.database` | database to be used by mediawiki  | wikidatabase |
+| `mariadb.dbUsers.username` | mariadb user | wiki |
+| `mariadb.dbUsers.password` | password for mardiadb user | password |
 | `mariadb.service.type` | kubernetes service type | ClusterIP |
 | `mariadb.service.port` | service HTTP port | 3306 |
 | `mariadb.resources` | CPU/Memory resource requests/limits  | {} |
@@ -100,7 +103,7 @@ The following table lists some of the configurable parameters of the MediaWiki c
 - DB database: `wikidatabase`
 - DB password: `password`
 
-## Deployment using K8s-manifests
+## Deploy using K8s-manifests
 The kubernetes objects are defined in `K8s-manifests` folder.
 ### K8s-manifests/mariadb 
 This directory contains the necessary Kubernetes manifest files to deploy a MariaDB database, which is a prerequisite for running MediaWiki.
