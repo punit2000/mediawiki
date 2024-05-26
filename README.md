@@ -106,11 +106,11 @@ The following table lists some of the configurable parameters of the MediaWiki c
 ## Output Screenshot
 <img src="output_screenshots/pods-running.png" width="500" height="125"><br />
 
-<img src="output_screenshots/output_1.png" width="500" height="250"><br />
+<img src="output_screenshots/output_1.png" width="550" height="250"><br />
 
-<img src="output_screenshots/output_2.png" width="500" height="250"><br />
+<img src="output_screenshots/output_2.png" width="550" height="250"><br />
 
-<img src="output_screenshots/output_3.png" width="500" height="250">
+<img src="output_screenshots/output_3.png" width="550" height="250">
 ## Deployment Strategy
 Rolling updates are the default strategy for deployments in Kubernetes. This process allows you to update your application in Kubernetes with minimal downtime, as it ensures that some instances of your application are always running during the update process.
 
