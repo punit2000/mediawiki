@@ -166,6 +166,6 @@ kubectl create configmap mediawiki-config --from-file=LocalSettings.php
 ### Database configuration details:
 <img src="output_screenshots/output_2.png" width="550" height="250"><br />
 
-### After loading LocalSettings.php file
+### After loading LocalSettings.php file:
 <img src="output_screenshots/output_3.png" width="550" height="250">
 
