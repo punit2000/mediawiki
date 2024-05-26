@@ -110,7 +110,7 @@ helm upgrade --install mediawiki mediawiki-helm/ -n 'namespace' --set mediawiki.
 ```
 ### Enable pvc for mariadb database
 ```
-helm install mediawiki mediawiki-helm/ -n 'namespace' --set mariadb.pvc.enabled=true
+helm upgrade --install mediawiki mediawiki-helm/ -n 'namespace' --set mariadb.pvc.enabled=true
 ```
 
 ### Load LocalSettings.php file after configuring mediawiki
