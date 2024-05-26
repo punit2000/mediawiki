@@ -103,6 +103,15 @@ The following table lists some of the configurable parameters of the MediaWiki c
 - DB database: `wikidatabase`
 - DB password: `password`
 
+## Output Screenshot
+![Running pods](pods-running.png)
+![Output image](output_1.png)
+![Database Configuration](output_2.png)
+![After loading LocalSettings.php file](output_2.png)
+## Deployment Strategy
+Rolling updates are the default strategy for deployments in Kubernetes. This process allows you to update your application in Kubernetes with minimal downtime, as it ensures that some instances of your application are always running during the update process.
+
+
 ## Deploy using K8s-manifests
 The kubernetes objects are defined in `K8s-manifests` folder.
 ### K8s-manifests/mariadb 
